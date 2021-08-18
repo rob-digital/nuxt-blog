@@ -1,20 +1,32 @@
 <template>
   <div class="single-post-page">
     <section class="post">
-      <h1>Title</h1>
+      <h1>{{ loadedPost.title }}</h1>
       <div class="post-details">
-        <div>Last updated on</div>
-        <div>Writtem by ...</div>
+        <div>{{ loadedPost.updatedDate | date }}</div><br>
+        <div>written by {{ loadedPost.author}}</div>
       </div>
-      <p>Content</p>
+      <p>{{ loadedPost.content }}</p>
     </section>
     <section class="post-feedback">Let me know what do you think about post. Send email to <a href="mailTo:feedback@super.com">feedback@super.com</a></section>
   </div>
 </template>
 
 <script>
+import axios from 'axios'
   export default {
-
+   async asyncData(context) {
+     try {
+       const response = await axios.get(process.env.baseUrl + '/posts/' + context.params.id + '.json')
+        console.log(response.data);
+        return {loadedPost: response.data}
+      } catch (e) {
+        context.error(e)
+      }
+    },
+    head: {
+      title: 'A blog post'
+    }
   }
 </script>
 

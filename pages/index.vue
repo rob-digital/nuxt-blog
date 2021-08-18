@@ -3,34 +3,27 @@
     <section class="intro">
       <h1>Get the latest news</h1>
     </section>
-    <section class="featured-posts">
 
-      <nuxt-link :to="'/posts/' + 1" class="post-preview">
-        <article>
-          <div class="post-thumbnail" style="background-image: url('https://res.cloudinary.com/people-matters/image/upload/fl_immutable_cache,w_624,h_351,q_auto,f_auto/v1611723380/1611723379.jpg')"></div>
-          <div class="post-content">
-            <h1>Post Title</h1>
-            <p>Preview Text</p>
-          </div>
-        </article>
-      </nuxt-link>
 
-      <nuxt-link :to="'/posts/' + 2" class="post-preview">
-        <article>
-          <div class="post-thumbnail" style="background-image: url('https://res.cloudinary.com/people-matters/image/upload/fl_immutable_cache,w_624,h_351,q_auto,f_auto/v1611723380/1611723379.jpg')"></div>
-          <div class="post-content">
-            <h1>Post Title 2</h1>
-            <p>Preview Text 2</p>
-          </div>
-        </article>
-      </nuxt-link>
+      <PostList :posts="loadedPosts"/>
 
-    </section>
+
   </div>
 </template>
 
 <script>
-export default {}
+// import  PostList from '@/components/Posts/PostList'  // PostList is a global component registered in 'plugins'
+export default {
+  // components: {
+  //   PostList
+  // },
+     computed: {
+      loadedPosts() {
+        return this.$store.getters.loadedPosts
+      }
+    }
+
+}
 </script>
 
 <style scoped>
@@ -39,6 +32,7 @@ export default {}
   position: relative;
   padding: 30px;
   box-sizing: border-box;
+  background-image: url('~assets/images/main-page-background.jpg');
   background-position: center;
   background-size: cover;
 }
@@ -73,39 +67,5 @@ export default {}
   justify-content: center;
 }
 
-.post-preview {
-  border: 1px solid #ccc;
-  box-shadow: 0 2px 2px #ccc;
-  background-color: white;
-  width: 90%;
-}
 
-a {
-  text-decoration: none;
-  color: black;
-}
-
-@media (min-width: 850px) {
-  .post-preview {
-    width: 400px;
-    margin: 10px;
-  }
-}
-
-.post-thumbnail {
-  width: 100%;
-  height: 200px;
-  background-position: center;
-  background-size: cover;
-}
-
-.post-content {
-  padding: 10px;
-  text-align: center;
-}
-
-a:hover .post-content,
-a:active .post-content {
-  background-color: #ccc;
-}
 </style>

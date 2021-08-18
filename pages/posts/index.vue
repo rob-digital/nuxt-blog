@@ -1,12 +1,22 @@
 <template>
   <div class="post-page">
-
+    <PostList :posts="loadedPosts"/>
   </div>
 </template>
 
 <script>
-  export default {
+// import  PostList from '@/components/Posts/PostList' -> this is a global component registered in 'plugins'
 
+  export default {
+    // components: {
+    //   PostList
+    // },
+
+    computed: {
+      loadedPosts() {
+        return this.$store.getters.loadedPosts
+      }
+    }
   }
 </script>
 
@@ -16,4 +26,5 @@
     justify-content: center;
     align-items: center;
   }
+
 </style>
